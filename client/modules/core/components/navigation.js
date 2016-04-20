@@ -32,8 +32,8 @@ export default class Navigation extends React.Component {
           open={this.state.open}
           onRequestChange={open => this.setState({open})}
         >
-          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+          <MenuItem onTouchTap={this.handleClose}><a href='/new-post' >Add Trip</a></MenuItem>
+          <MenuItem onTouchTap={this.handleClose}><a href='/' >Show Trips</a></MenuItem>
         </LeftNav>
       </div>
     );

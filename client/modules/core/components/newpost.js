@@ -1,17 +1,36 @@
 import React from 'react';
+import TextField from 'material-ui/lib/text-field';
+import Colors from 'material-ui/lib/styles/colors';
+import RaisedButton from 'material-ui/lib/raised-button';
+
+const styles = {
+  errorStyle: {
+    color: Colors.orange500,
+  }
+};
 
 class NewPost extends React.Component {
   render() {
-    const {error} = this.props;
+    const {errors} = this.props;
+    const style = {
+      margin: 12,
+    };
     return (
-      <form className="new-post" onSubmit={this.createPost.bind(this)}>
-        <h2>Add New Post</h2>
-        {error ? <p style={{color: 'red'}}>{error}</p> : null}
-
-        <input ref="titleRef" type="Text" placeholder="Enter your post title." /> <br/>
-        <textarea ref="contentRef" placeholder="Enter your post content." /> <br/>
-        <button type="submit">Add New</button>
-      </form>
+      <div>
+        <TextField
+         hintText="Title"
+         ref="titleRef"
+         errorText={errors.titleError}
+         errorStyle={styles.errorStyle}
+        /><br/>
+        <TextField
+         hintText="Content"
+         ref="contentRef"
+         errorText={errors.contentError}
+         errorStyle={styles.errorStyle}
+        /><br/>
+        <RaisedButton label="Add" style={style} onTouchEnd={this.createPost.bind(this)}/>
+      </div>
     );
   }
 
@@ -21,11 +40,10 @@ class NewPost extends React.Component {
     if (event && event.preventDefault) {
       event.preventDefault();
     }
-
     const {create} = this.props;
     const {titleRef, contentRef} = this.refs;
 
-    create(titleRef.value, contentRef.value);
+    create(titleRef.getValue(), contentRef.getValue());
   }
 }
 

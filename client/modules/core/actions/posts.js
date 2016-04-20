@@ -1,10 +1,20 @@
 export default {
   create({Meteor, LocalState, FlowRouter}, title, content) {
-    if (!title || !content) {
-      return LocalState.set('SAVING_ERROR', 'Title & Content are required!');
+    let error = false;
+    if (!title) {
+      error = true;
+      LocalState.set('TITLE_ERROR', 'Title is required!');
+    }
+    if (!content) {
+      error = true;
+      LocalState.set('CONTENT_ERROR', 'Content is required!');
+    }
+    if (error === true) {
+      return LocalState;
     }
 
-    LocalState.set('SAVING_ERROR', null);
+    LocalState.set('TITLE_ERROR', null);
+    LocalState.set('CONTENT_ERROR', null);
 
     const id = Meteor.uuid();
     // There is a method stub for this in the config/method_stubs
@@ -18,6 +28,8 @@ export default {
   },
 
   clearErrors({LocalState}) {
-    return LocalState.set('SAVING_ERROR', null);
+    LocalState.set('TITLE_ERROR', null);
+    LocalState.set('CONTENT_ERROR', null);
+    return LocalState;
   }
 };
