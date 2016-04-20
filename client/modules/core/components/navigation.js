@@ -5,7 +5,6 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 
 export default class Navigation extends React.Component {
 
-// test
   constructor(props) {
     super(props);
     this.state = {open: false};
